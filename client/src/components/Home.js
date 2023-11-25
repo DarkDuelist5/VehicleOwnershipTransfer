@@ -7,9 +7,11 @@ const Home = ({ contract, account, provider }) => {
     const pay = async(event) => {
         let ele = event.target.parentElement;
         console.log(ele);
-        let keemat = ele.querySelector("input").value;
+        let keemat = ele.querySelector(".cost").value;
+        let carRegNo = ele.querySelector(".carid").value;
+        console.log(carRegNo);
         console.log(keemat);
-        await contract.raiseRequest(1, 5, {value: ethers.utils.parseUnits(keemat, "ether")});
+        await contract.raiseRequest(carRegNo, keemat, {value: ethers.utils.parseUnits(keemat, "ether")});
     }
 
     const fetchData = async() =>{
@@ -28,7 +30,7 @@ const Home = ({ contract, account, provider }) => {
                 const str_array = item.split(",");
                 return (
                     // <button onClick={handleClick} style={{height:50}}> Get Summary</button>
-                   <li style={{marginTop: '10px'}} key={i}> {str_array[0]}, {str_array[1]} <input type="hidden" value={str_array[2]}/><button onClick={pay}>PAY HERE</button> </li>
+                   <li style={{marginTop: '10px'}} key={i}> {str_array[0]}, {str_array[1]} <input type="hidden" className="cost" value={str_array[2]}/> <input type="hidden" className="carid" value={str_array[0]}/> <button onClick={pay}>PAY HERE</button> </li>
                 )
             });
             setData(listItems);

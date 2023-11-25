@@ -22,6 +22,13 @@ contract Upload {
         uint price;
         bool accepted;
     }
+    struct Cert{
+        uint id;
+        string date;
+        uint price;
+        address buyer;
+        address seller;
+    }
     Vehicle[] public onSale;
     mapping(address=>Pair[]) incomingReqs;
     mapping(uint=>address[]) history;
@@ -29,6 +36,7 @@ contract Upload {
   mapping(address=>string[]) value;
   mapping(address=>mapping(address=>bool)) ownership;
   mapping(address=>Access[]) accessList;
+  mapping(address=>Cert[]) forCert;
   mapping(address=>mapping(address=>bool)) previousData;
 
   function addVehicle(uint _id, string memory _name, uint _price, string memory _pic, uint _wdrive) public{
@@ -66,8 +74,17 @@ contract Upload {
             }
         }
         history[_id].push(buyer);
-       // payable(msg.sender).transfer(1 ether);
+        forCert[buyer].push(Cert(_id, "0/0/000", amt, buyer, msg.sender));
     }
+    // payable(msg.sender).transfer(1 ether);
+
+    function viewLatestTransac() public view returns(Cert memory)
+    {
+        uint n = forCert[msg.sender].length;
+
+        return forCert[msg.sender][n-1];
+    }
+
     function viewIncoming() public view returns(Pair[] memory)
     {
         return incomingReqs[msg.sender];

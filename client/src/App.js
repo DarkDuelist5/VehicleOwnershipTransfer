@@ -8,7 +8,8 @@ import Pay from "./components/Pay"
 import Home from "./components/Home"
 import Incoming from "./components/Incoming"
 import AddVehicle from './components/AddVehicle';
-import Track from "./components/TrackOwnership"
+import Track from "./components/TrackOwnership";
+import Certify from './components/Certify';
 function App() {
 
   const [account, setAccount] = useState("");
@@ -61,6 +62,7 @@ function App() {
         <Route exact path="/userdocs" element = {<FileUp account={account} provider={provider} contract={contract} />}/>
         <Route exact path="/add" element = {<AddVehicle account={account} provider={provider} contract={contract}/>}/>
         <Route exact path="/track" element = {<Track account={account} provider={provider} contract={contract}/>}/>
+        <Route exact path="/certify" element = {<Certify account={account} provider={provider} contract={contract}/>} />
       </Routes>
     </div>
   );
